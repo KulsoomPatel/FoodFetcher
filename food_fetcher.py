@@ -2,6 +2,7 @@ import pygame
 import sys
 from Food import Food
 from Basket import Basket
+from Scoreboard import Scoreboard
 
 
 def run_game():
@@ -15,6 +16,7 @@ def run_game():
     screen = pygame.display.set_mode((screen_width, screen_height), 0, 32)
 
     clock = pygame.time.Clock()
+    scoreboard = Scoreboard(screen)
     foods = [Food(screen)]
     basket = Basket(screen)
 
@@ -36,14 +38,19 @@ def run_game():
             food.blitme()
 
             if food.rect.colliderect(basket.rect):
+                scoreboard.food_caught += 1
                 foods.remove(food)
                 foods.append(Food(screen))
                 continue
 
             if food.y_position > screen.get_height():
+                scoreboard.food_missed += 1
                 foods.remove(food)
                 foods.append(Food(screen))
                 continue
+
+        # Display scoreboard
+        scoreboard.blitme()
         pygame.display.flip()
 
 
