@@ -12,6 +12,13 @@ class Basket(Sprite):
         self.x_position = self.screen.get_width() / 2
         self.y_position = self.screen.get_height() - self.image_h/2
 
+        self.update_rect()
+
     def blitme(self):
         draw_pos = self.image.get_rect().move(self.x_position - self.image_w / 2, self.y_position - self.image_h / 2)
         self.screen.blit(self.image, draw_pos)
+
+    def update_rect(self):
+        self.rect = pygame.Rect(self.x_position - self.image_w / 2, self.y_position - self.image_h / 2,
+                                self.image_w, self.image_h)
+

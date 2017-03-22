@@ -28,14 +28,22 @@ def run_game():
 
         screen.fill(bg_color)
         basket.x_position = pygame.mouse.get_pos()[0]
+        basket.update_rect()
         basket.blitme()
 
         for food in foods:
             food.update(time_passed)
             food.blitme()
+
+            if food.rect.colliderect(basket.rect):
+                foods.remove(food)
+                foods.append(Food(screen))
+                continue
+
             if food.y_position > screen.get_height():
                 foods.remove(food)
                 foods.append(Food(screen))
+                continue
         pygame.display.flip()
 
 

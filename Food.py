@@ -16,6 +16,7 @@ class Food(Sprite):
 
         # Begin image at the top of the screen
         self.y_position = self.screen.get_height() - self.screen.get_height() -  self.image_h/2
+        self.update_rect()
 
         # redrawing an object to a screen
 
@@ -25,3 +26,9 @@ class Food(Sprite):
 
     def update(self, time_passed):
         self.y_position += self.speed * time_passed
+        self.update_rect()
+
+
+    def update_rect(self):
+        self.rect = pygame.Rect(self.x_position - self.image_w / 2, self.y_position - self.image_h / 2,
+                                self.image_w, self.image_h)
