@@ -27,6 +27,8 @@ def run_game():
                 sys.exit()
 
         screen.fill(bg_color)
+        basket.x_position = pygame.mouse.get_pos()[0]
+        basket.blitme()
 
         for food in foods:
             food.update(time_passed)
