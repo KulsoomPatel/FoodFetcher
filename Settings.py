@@ -10,6 +10,11 @@ class Settings:
     def initialize_game_parameters(self):
         # game play parameters
         self.food_speed = 0.1
+        # Number of balloons to release in a spawning:
+        self.batch_size = 1
+        # Number of balloons that need to be popped before increasing batch_size
+        #  For actual play, probably want ~10; for testing, ~3
+        self.catch_needed = 3
 
 
 
