@@ -5,6 +5,14 @@ class Settings:
         # RGB color
         self.bg_color = 179, 204, 255
 
+        self.button_width, self.button_height = 250, 50
+        self.button_bg = (0, 163, 0)
+        self.button_text_color = (235, 235, 235)
+        self.button_font, self.button_font_size = 'Arial', 24
+
+        # game status
+        self.game_active = False
+
         self.initialize_game_parameters()
 
     def initialize_game_parameters(self):
