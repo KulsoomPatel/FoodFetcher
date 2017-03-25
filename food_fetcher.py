@@ -35,6 +35,7 @@ def run_game():
         check_foods(foods, basket, scoreboard, screen, settings, time_passed)
 
         if len(foods) == 0:
+            settings.food_speed *= settings.speed_increase_factor
             release_batch(screen, settings, foods)
 
             # Display scoreboard
@@ -43,7 +44,7 @@ def run_game():
 
 
 def spawn_foods(screen, settings, foods):
-    foods.append(Food(screen, settings.food_speed))
+    foods.append(Food(screen, settings))
 
 
 def miss_food(scoreboard, food, foods):
@@ -54,7 +55,7 @@ def miss_food(scoreboard, food, foods):
 def catch_food(scoreboard, settings, food, foods):
     scoreboard.food_caught += 1
     foods.remove(food)
-    settings.food_speed *= 1.05
+    settings.food_speed *= settings.speed_increase_factor
 
     if scoreboard.food_caught % settings.catch_needed == 0:
         settings.batch_size += 1
