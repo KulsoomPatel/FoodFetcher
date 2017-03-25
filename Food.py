@@ -5,12 +5,12 @@ from pygame.sprite import Sprite
 
 
 class Food(Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen, food_speed):
         Sprite.__init__(self)
         self.screen = screen
         self.image = pygame.image.load('foodImg.png').convert_alpha()
         self.image_w, self.image_h = self.image.get_size()
-        self.speed = 0.1
+        self.speed = food_speed
 
         self.x_position = self.x_position = randint(self.image_w / 2, self.screen.get_width() - self.image_w / 2)
 
