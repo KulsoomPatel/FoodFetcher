@@ -13,7 +13,6 @@ def run_game():
     pygame.init()
     # returns a pyGame surface
     screen = pygame.display.set_mode((settings.screen_width, settings.screen_height), 0, 32)
-
     clock = pygame.time.Clock()
     scoreboard = Scoreboard(screen)
 
@@ -26,6 +25,7 @@ def run_game():
     while True:
         time_passed = clock.tick(50)
         mouse_x = pygame.mouse.get_pos()[0]
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -34,7 +34,10 @@ def run_game():
         update_basket(basket, mouse_x)
         check_foods(foods, basket, scoreboard, screen, settings, time_passed)
 
-        # Display scoreboard
+        if len(foods) == 0:
+            release_batch(screen, settings, foods)
+
+            # Display scoreboard
         scoreboard.blitme()
         pygame.display.flip()
 
@@ -53,11 +56,19 @@ def catch_food(scoreboard, settings, food, foods):
     foods.remove(food)
     settings.food_speed *= 1.05
 
+    if scoreboard.food_caught % settings.catch_needed == 0:
+        settings.batch_size += 1
+
 
 def update_basket(basket, mouse_x):
     basket.x_position = mouse_x
     basket.update_rect()
     basket.blitme()
+
+
+def release_batch(screen, settings, foods):
+    for x in range(0, settings.batch_size):
+        spawn_foods(screen, settings, foods)
 
 
 def check_foods(foods, basket, scoreboard, screen, settings, time_passed):
@@ -67,7 +78,6 @@ def check_foods(foods, basket, scoreboard, screen, settings, time_passed):
 
         if food.rect.colliderect(basket.rect):
             catch_food(scoreboard, settings, food, foods)
-            spawn_foods(screen, settings, foods)
             continue
 
         if food.y_position > screen.get_height():

@@ -15,8 +15,3 @@ class Settings:
         # Number of balloons that need to be popped before increasing batch_size
         #  For actual play, probably want ~10; for testing, ~3
         self.catch_needed = 3
-
-
-
-
-
