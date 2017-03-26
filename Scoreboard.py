@@ -44,6 +44,7 @@ class Scoreboard(Sprite):
         self.food_missed = 0
         self.catch_ratio = 1.0
         self.batches_finished = 0
+        self.poison_hit = 0
 
     def set_ratio_string(self):
         if self.catch_ratio == 1.0:

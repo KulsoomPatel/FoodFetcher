@@ -2,6 +2,7 @@ import pygame
 import sys
 from Food import Food
 from Poison import Poison
+from random import random
 
 
 class Engine:
@@ -49,7 +50,8 @@ class Engine:
 
     def spawn_foods(self, screen, settings, foods, poisons):
         foods.append(Food(screen, settings))
-        self.spawn_poison(screen, settings, poisons)
+        if random() < settings.poison_ratio:
+            self.spawn_poison(screen, settings, poisons)
 
     def check_events(self, settings, scoreboard, play_button, mouse_x, mouse_y, foods):
         for event in pygame.event.get():
@@ -70,5 +72,13 @@ class Engine:
             poison.update(time_passed)
             poison.blitme()
 
+            if poison.rect.colliderect(basket.rect):
+                self.hit_poison(scoreboard, settings, poison, poisons)
+                continue
+
     def spawn_poison(self, screen, settings, poisons):
         poisons.append(Poison(screen, settings))
+
+    def hit_poison(self, scoreboard, settings, poison, poisons):
+        scoreboard.poison_hit += 1
+        poisons.remove(poison)

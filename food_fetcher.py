@@ -47,6 +47,7 @@ def run_game():
                 if scoreboard.food_caught > 0:
                     #  Increase the balloon speed for each new batch of balloons.
                     settings.food_speed *= settings.speed_increase_factor
+                    settings.poison_ratio *= settings.speed_increase_factor
                     scoreboard.batches_finished += 1
                     # If player has completed required batches, increase batch_size
 

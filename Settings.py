@@ -21,6 +21,7 @@ class Settings:
     def initialize_game_parameters(self):
         # game play parameters
         self.food_speed = 0.1
+        self.poison_ratio = 0.10
 
         # CHANGE THIS VALUE
         self.speed_increase_factor = 1.05
