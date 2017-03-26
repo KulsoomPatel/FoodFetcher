@@ -19,8 +19,10 @@ def run_game():
     play_button = Button(screen, settings.screen_width / 2 - settings.button_width / 2,
                          settings.screen_height / 2 - settings.button_height / 2, settings, "Play Food Fetcher")
 
+    game_over_button = Button(screen, play_button.x_position, play_button.y_position - 2 * settings.button_height,
+                              settings, "Game Over")
+
     foods = []
-    spawn_foods(screen, settings, foods)
     basket = Basket(screen)
 
     # main event loop
@@ -29,7 +31,7 @@ def run_game():
         time_passed = clock.tick(50)
         mouse_x = pygame.mouse.get_pos()[0]
         mouse_y = pygame.mouse.get_pos()[1]
-        check_events(settings, play_button, mouse_x, mouse_y)
+        check_events(settings, scoreboard, play_button, mouse_x, mouse_y, foods)
 
         screen.fill(settings.bg_color)
 
@@ -42,8 +44,11 @@ def run_game():
                 release_batch(screen, settings, foods)
         else:
             play_button.blitme()
+            # If a game has just ended, show Game Over button
+            if settings.games_played > 0:
+                game_over_button.blitme()
 
-            # Display scoreboard
+                # Display scoreboard
         scoreboard.blitme()
         play_button.blitme()
         pygame.display.flip()
@@ -92,13 +97,25 @@ def check_foods(foods, basket, scoreboard, screen, settings, time_passed):
             spawn_foods(screen, settings, foods)
             continue
 
+        if scoreboard.food_missed > settings.misses_allowed:
+            # Set game_active to false, empty the list of balloons, and increment games_played
+            settings.game_active = False
+            settings.games_played += 1
 
-def check_events(settings, play_button, mouse_x, mouse_y):
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
-        settings.game_active = True
+
+def check_events(settings, scoreboard, play_button, mouse_x, mouse_y, foods):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if play_button.rect.collidepoint(mouse_x, mouse_y):
+                # Play button has been pressed.  Empty list of balloons,
+                #  initialize scoreboard and game parameters, and make game active.
+                del foods[:]
+                scoreboard.initialize_stats()
+                settings.initialize_game_parameters()
+                settings.game_active = True
 
 
 run_game()
