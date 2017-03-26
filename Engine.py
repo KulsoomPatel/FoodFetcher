@@ -1,18 +1,18 @@
 import pygame
 import sys
-
 from Food import Food
+from Poison import Poison
 
 
 class Engine:
     def __init__(self):
         pass
 
-    def release_batch(self, screen, settings, foods):
+    def release_batch(self, screen, settings, foods, poisons):
         for x in range(0, settings.batch_size):
-            self.spawn_foods(screen, settings, foods)
+            self.spawn_foods(screen, settings, foods, poisons)
 
-    def check_foods(self, foods, basket, scoreboard, screen, settings, time_passed):
+    def check_foods(self, foods, poisons, basket, scoreboard, screen, settings, time_passed):
         for food in foods:
             food.update(time_passed)
             food.blitme()
@@ -23,12 +23,12 @@ class Engine:
 
             if food.y_position > screen.get_height():
                 self.miss_food(scoreboard, food, foods)
-                self.spawn_foods(screen, settings, foods)
+                self.spawn_foods(screen, settings, foods, poisons)
                 continue
 
             if scoreboard.food_caught > 0:
                 scoreboard.catch_ratio = float(scoreboard.food_caught) / (
-                scoreboard.food_caught + scoreboard.food_missed)
+                    scoreboard.food_caught + scoreboard.food_missed)
                 if scoreboard.catch_ratio < settings.min_catch_ratio:
                     # Set game_active to false, empty the list of balloons, and increment games_played
                     settings.game_active = False
@@ -47,8 +47,9 @@ class Engine:
         scoreboard.food_caught += 1
         foods.remove(food)
 
-    def spawn_foods(self, screen, settings, foods):
+    def spawn_foods(self, screen, settings, foods, poisons):
         foods.append(Food(screen, settings))
+        self.spawn_poison(screen, settings, poisons)
 
     def check_events(self, settings, scoreboard, play_button, mouse_x, mouse_y, foods):
         for event in pygame.event.get():
@@ -63,3 +64,11 @@ class Engine:
                     scoreboard.initialize_stats()
                     settings.initialize_game_parameters()
                     settings.game_active = True
+
+    def check_poisons(self, poisons, basket, scoreboard, screen, settings, time_passed):
+        for poison in poisons:
+            poison.update(time_passed)
+            poison.blitme()
+
+    def spawn_poison(self, screen, settings, poisons):
+        poisons.append(Poison(screen, settings))

@@ -4,6 +4,7 @@ from Scoreboard import Scoreboard
 from Settings import Settings
 from Button import Button
 from Engine import Engine
+from Instructions import Instructions
 
 
 def run_game():
@@ -21,8 +22,10 @@ def run_game():
 
     game_over_button = Button(screen, play_button.x_position, play_button.y_position - 2 * settings.button_height,
                               settings, "Game Over")
+    instructions = Instructions(screen, settings)
 
     foods = []
+    poisons = []
     basket = Basket(screen)
 
     # main event loop
@@ -37,7 +40,8 @@ def run_game():
 
         if settings.game_active:
             engine.update_basket(basket, mouse_x)
-            engine.check_foods(foods, basket, scoreboard, screen, settings, time_passed)
+            engine.check_foods(foods, poisons, basket, scoreboard, screen, settings, time_passed)
+            engine.check_poisons(poisons, basket, scoreboard, screen, settings, time_passed)
 
             if len(foods) == 0:
                 if scoreboard.food_caught > 0:
@@ -48,12 +52,15 @@ def run_game():
 
                 if scoreboard.batches_finished % settings.batches_needed == 0 and scoreboard.batches_finished > 0:
                     settings.batch_size += 1
-                engine.release_batch(screen, settings, foods)
+                engine.release_batch(screen, settings, foods, poisons)
         else:
             play_button.blitme()
             # If a game has just ended, show Game Over button
             if settings.games_played > 0:
                 game_over_button.blitme()
+
+            if settings.games_played < 3:
+                instructions.blitme()
 
         # Display scoreboard
         scoreboard.blitme()
