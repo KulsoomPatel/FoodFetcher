@@ -40,7 +40,14 @@ def run_game():
             engine.check_foods(foods, basket, scoreboard, screen, settings, time_passed)
 
             if len(foods) == 0:
-                settings.food_speed *= settings.speed_increase_factor
+                if scoreboard.food_caught > 0:
+                    #  Increase the balloon speed for each new batch of balloons.
+                    settings.food_speed *= settings.speed_increase_factor
+                    scoreboard.batches_finished += 1
+                    # If player has completed required batches, increase batch_size
+
+                if scoreboard.batches_finished % settings.batches_needed == 0 and scoreboard.batches_finished > 0:
+                    settings.batch_size += 1
                 engine.release_batch(screen, settings, foods)
         else:
             play_button.blitme()

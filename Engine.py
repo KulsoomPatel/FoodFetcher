@@ -27,7 +27,8 @@ class Engine:
                 continue
 
             if scoreboard.food_caught > 0:
-                scoreboard.catch_ratio = float(scoreboard.food_caught) / (scoreboard.food_caught + scoreboard.food_missed)
+                scoreboard.catch_ratio = float(scoreboard.food_caught) / (
+                scoreboard.food_caught + scoreboard.food_missed)
                 if scoreboard.catch_ratio < settings.min_catch_ratio:
                     # Set game_active to false, empty the list of balloons, and increment games_played
                     settings.game_active = False
@@ -45,10 +46,6 @@ class Engine:
     def catch_food(self, scoreboard, settings, food, foods):
         scoreboard.food_caught += 1
         foods.remove(food)
-        settings.food_speed *= settings.speed_increase_factor
-
-        if scoreboard.food_caught % settings.catch_needed == 0:
-            settings.batch_size += 1
 
     def spawn_foods(self, screen, settings, foods):
         foods.append(Food(screen, settings))
