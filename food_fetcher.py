@@ -9,7 +9,6 @@ from Instructions import Instructions
 
 def run_game():
     settings = Settings()
-    engine = Engine()
 
     # initialise the game
     pygame.init()
@@ -27,6 +26,7 @@ def run_game():
     foods = []
     poisons = []
     basket = Basket(screen)
+    engine = Engine(screen, settings, scoreboard, foods, poisons, basket)
 
     # main event loop
     # while True:
@@ -34,14 +34,14 @@ def run_game():
         time_passed = clock.tick(50)
         mouse_x = pygame.mouse.get_pos()[0]
         mouse_y = pygame.mouse.get_pos()[1]
-        engine.check_events(settings, scoreboard, play_button, mouse_x, mouse_y, foods)
+        engine.check_events(play_button, mouse_x, mouse_y)
 
         screen.fill(settings.bg_color)
 
         if settings.game_active:
-            engine.update_basket(basket, mouse_x)
-            engine.check_foods(foods, poisons, basket, scoreboard, screen, settings, time_passed)
-            engine.check_poisons(poisons, basket, scoreboard, screen, settings, time_passed)
+            engine.update_basket(mouse_x)
+            engine.check_foods(time_passed)
+            engine.check_poisons(time_passed)
 
             if len(foods) == 0:
                 if scoreboard.food_caught > 0:
@@ -53,7 +53,7 @@ def run_game():
 
                 if scoreboard.batches_finished % settings.batches_needed == 0 and scoreboard.batches_finished > 0:
                     settings.batch_size += 1
-                engine.release_batch(screen, settings, foods, poisons)
+                engine.release_batch()
         else:
             play_button.blitme()
             # If a game has just ended, show Game Over button
