@@ -13,7 +13,7 @@ class Settings:
         # game status
         self.game_active = False
         # game over conditions
-        self.misses_allowed = 3
+        self.min_catch_ratio = 0.9
         self.games_played = 0
 
         self.initialize_game_parameters()

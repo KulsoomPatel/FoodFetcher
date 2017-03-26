@@ -26,10 +26,12 @@ class Engine:
                 self.spawn_foods(screen, settings, foods)
                 continue
 
-            if scoreboard.food_missed > settings.misses_allowed:
-                # Set game_active to false, empty the list of balloons, and increment games_played
-                settings.game_active = False
-                settings.games_played += 1
+            if scoreboard.food_caught > 0:
+                scoreboard.catch_ratio = float(scoreboard.food_caught) / (scoreboard.food_caught + scoreboard.food_missed)
+                if scoreboard.catch_ratio < settings.min_catch_ratio:
+                    # Set game_active to false, empty the list of balloons, and increment games_played
+                    settings.game_active = False
+                    settings.games_played += 1
 
     def update_basket(self, basket, mouse_x):
         basket.x_position = mouse_x
@@ -61,6 +63,6 @@ class Engine:
                     # Play button has been pressed.  Empty list of balloons,
                     #  initialize scoreboard and game parameters, and make game active.
                     del foods[:]
-                    # scoreboard.initialize_stats()
+                    scoreboard.initialize_stats()
                     settings.initialize_game_parameters()
                     settings.game_active = True

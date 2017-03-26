@@ -48,7 +48,7 @@ def run_game():
             if settings.games_played > 0:
                 game_over_button.blitme()
 
-                # Display scoreboard
+        # Display scoreboard
         scoreboard.blitme()
         pygame.display.flip()
 
