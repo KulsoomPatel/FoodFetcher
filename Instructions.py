@@ -10,12 +10,12 @@ class Instructions(Sprite):
         self.settings = settings
 
         self.text_color = (30, 30, 30)
-        self.font = pygame.font.SysFont('Arial', 24)
+        self.font = pygame.font.SysFont('Calibri', 24)
 
         # Store the set of instructions
-        self.instr_lines = ["Move your mouse to swipe the sword back and forth."]
-        self.instr_lines.append("Or, click on the sword to grab it.")
-        self.instr_lines.append("But keep your pop rate above 90%!")
+        self.instr_lines = ["Catch the pizza's in the basket by moving the mouse from right to left"]
+        self.instr_lines.append("Ensure your catch rate is at 90%")
+        self.instr_lines.append("Avoid the poison as 3 catches and you're out!")
 
         # The instruction message only needs to be prepped once, not on every blit
         self.prep_msg()

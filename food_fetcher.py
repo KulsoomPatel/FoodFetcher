@@ -5,6 +5,7 @@ from Settings import Settings
 from Button import Button
 from Engine import Engine
 from Instructions import Instructions
+from Title import Title
 
 
 def run_game():
@@ -19,9 +20,10 @@ def run_game():
     play_button = Button(screen, settings.screen_width / 2 - settings.button_width / 2,
                          settings.screen_height / 2 - settings.button_height / 2, settings, "Play Food Fetcher")
 
-    game_over_button = Button(screen, play_button.x_position, play_button.y_position - 2 * settings.button_height,
-                              settings, "Game Over")
+    game_over_button = Button(screen, play_button.x_position, play_button.y_position + 4 * settings.button_height,
+                              settings, "Game Over!")
     instructions = Instructions(screen, settings)
+    draw_title = Title(screen)
 
     foods = []
     poisons = []
@@ -56,6 +58,8 @@ def run_game():
                 engine.release_batch()
         else:
             play_button.blitme()
+            draw_title.blitme(settings.screen_width / 2 - settings.button_width / 2,
+                              settings.screen_height / 2 - settings.button_height * 4)
             # If a game has just ended, show Game Over button
             if settings.games_played > 0:
                 game_over_button.blitme()

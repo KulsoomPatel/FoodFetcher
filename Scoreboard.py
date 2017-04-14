@@ -48,9 +48,9 @@ class Scoreboard(Sprite):
 
     def set_ratio_string(self):
         if self.catch_ratio == 1.0:
-            self.catch_ratio_string = "Pop Rate: 100%"
+            self.catch_ratio_string = "Catch Rate: 100%"
         else:
-            self.catch_ratio_string = "Pop Rate: " + "{0:.3}%".format(self.catch_ratio * 100.0)
+            self.catch_ratio_string = "Catch Rate: " + "{0:.3}%".format(self.catch_ratio * 100.0)
         if self.catch_ratio < 0.95:
             self.ratio_text_color = (255, 51, 51)
         else:
