@@ -1,5 +1,6 @@
 import pygame
 from Basket import Basket
+from DisplayScore import DisplayScore
 from Scoreboard import Scoreboard
 from Settings import Settings
 from Button import Button
@@ -20,10 +21,12 @@ def run_game():
     play_button = Button(screen, settings.screen_width / 2 - settings.button_width / 2,
                          settings.screen_height / 2 - settings.button_height / 2, settings, "Play Food Fetcher")
 
-    game_over_button = Button(screen, play_button.x_position, play_button.y_position + 4 * settings.button_height,
+    game_over_button = Button(screen, play_button.x_position, play_button.y_position + 1.5 * settings.button_height,
                               settings, "Game Over!")
     instructions = Instructions(screen, settings)
     draw_title = Title(screen)
+
+    displayScore = DisplayScore(screen, settings, 5, 3)
 
     foods = []
     poisons = []
@@ -63,8 +66,9 @@ def run_game():
             # If a game has just ended, show Game Over button
             if settings.games_played > 0:
                 game_over_button.blitme()
+                displayScore.blitme()
 
-            if settings.games_played < 3:
+            if settings.games_played < 1:
                 instructions.blitme()
 
         # Display scoreboard
