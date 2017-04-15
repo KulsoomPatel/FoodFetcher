@@ -64,3 +64,12 @@ class Scoreboard(Sprite):
             self.ratio_text_color = (255, 51, 51)
         else:
             self.ratio_text_color = self.text_color
+
+    def get_score(self):
+        return self.score
+
+    def get_caught_pizza(self):
+        return self.food_caught
+
+    def get_caught_poison(self):
+        return self.poison_hit

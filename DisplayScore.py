@@ -3,15 +3,21 @@ from pygame.sprite import Sprite
 
 
 class DisplayScore(Sprite):
-    def __init__(self, screen, settings, missed, caught):
+    def __init__(self, screen, settings, score, pizza, poison):
         Sprite.__init__(self)
         self.screen = screen
         self.settings = settings
 
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont('Calibri', 24)
-        self.score = str(caught - missed)
-        self.instr_lines = ["Game Over! You scored " + self.score]
+        self.score = str(score)
+        self.pizza = str(pizza)
+        self.poison = str(poison)
+        self.instr_lines = [
+            "Game Over!"]
+
+        self.instr_lines.append(
+            "You scored " + self.score + " as you caught " + self.pizza + " pizza's and " + self.poison + " poison")
 
         self.prep_msg()
 
@@ -23,10 +29,6 @@ class DisplayScore(Sprite):
             self.msg_x.append(self.settings.screen_width / 2 - self.font.size(line)[0] / 2)
             self.msg_y.append(y_position + index * self.font.size(line)[1])
 
-
     def blitme(self):
         for msg_x, msg_y, msg_image in zip(self.msg_x, self.msg_y, self.msg_images):
             self.screen.blit(msg_image, (msg_x, msg_y))
-
-
-

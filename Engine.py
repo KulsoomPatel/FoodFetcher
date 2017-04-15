@@ -51,6 +51,7 @@ class Engine:
 
     def catch_food(self, food):
         self.scoreboard.food_caught += 1
+        self.scoreboard.score += 1
         self.foods.remove(food)
 
     def spawn_foods(self):
@@ -86,4 +87,5 @@ class Engine:
 
     def hit_poison(self, poison):
         self.scoreboard.poison_hit += 1
+        self.scoreboard.score -= 1
         self.poisons.remove(poison)

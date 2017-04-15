@@ -23,8 +23,6 @@ def run_game():
     instructions = Instructions(screen, settings)
     draw_title = Title(screen)
 
-    displayScore = DisplayScore(screen, settings, 5, 3)
-
     foods = []
     poisons = []
     basket = Basket(screen)
@@ -62,6 +60,10 @@ def run_game():
                               settings.screen_height / 2 - settings.button_height * 4)
             # If a game has just ended, show Game Over button
             if settings.games_played > 0:
+                score = scoreboard.get_score()
+                pizza_caught = scoreboard.get_caught_pizza()
+                poison_caught = scoreboard.get_caught_poison()
+                displayScore = DisplayScore(screen, settings, score, pizza_caught, poison_caught)
                 displayScore.blitme()
 
             if settings.games_played < 1:
