@@ -11,12 +11,12 @@ class DisplayScore(Sprite):
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont('Calibri', 24)
         self.score = str(caught - missed)
-        self.instr_lines = ["You scored " + self.score]
+        self.instr_lines = ["Game Over! You scored " + self.score]
 
         self.prep_msg()
 
     def prep_msg(self):
-        y_position = self.settings.screen_height / 2 + 180
+        y_position = self.settings.screen_height / 2 + 50
         self.msg_images, self.msg_x, self.msg_y = [], [], []
         for index, line in enumerate(self.instr_lines):
             self.msg_images.append(self.font.render(line, True, self.text_color))

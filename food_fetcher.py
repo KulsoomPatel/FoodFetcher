@@ -20,9 +20,6 @@ def run_game():
     scoreboard = Scoreboard(screen)
     play_button = Button(screen, settings.screen_width / 2 - settings.button_width / 2,
                          settings.screen_height / 2 - settings.button_height / 2, settings, "Play Food Fetcher")
-
-    game_over_button = Button(screen, play_button.x_position, play_button.y_position + 1.5 * settings.button_height,
-                              settings, "Game Over!")
     instructions = Instructions(screen, settings)
     draw_title = Title(screen)
 
@@ -65,7 +62,6 @@ def run_game():
                               settings.screen_height / 2 - settings.button_height * 4)
             # If a game has just ended, show Game Over button
             if settings.games_played > 0:
-                game_over_button.blitme()
                 displayScore.blitme()
 
             if settings.games_played < 1:

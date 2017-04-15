@@ -14,7 +14,7 @@ class Instructions(Sprite):
 
         # Store the set of instructions
         self.instr_lines = ["Catch the pizza's in the basket by moving the mouse from right to left"]
-        self.instr_lines.append("Ensure your catch rate is at 90%")
+        self.instr_lines.append("Ensure your catch rate is at 90% or you're out!")
         self.instr_lines.append("Avoid the poison as 3 catches and you're out!")
 
         # The instruction message only needs to be prepped once, not on every blit
