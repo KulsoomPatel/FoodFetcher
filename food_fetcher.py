@@ -28,8 +28,9 @@ def run_game():
     basket = Basket(screen)
     engine = Engine(screen, settings, scoreboard, foods, poisons, basket)
     # play music
-    pygame.mixer.music.load('music.wav')
-    pygame.mixer.music.play(-1)
+
+    music = pygame.mixer.Sound("music.wav")
+    music.play(loops= -1)
 
     # main event loop
     # while True:

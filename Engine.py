@@ -13,6 +13,8 @@ class Engine:
         self.foods = foods
         self.poisons = poisons
         self.basket = basket
+        self.poisonsound = pygame.mixer.Sound("lostitem.wav")
+        self.pizzasound = pygame.mixer.Sound("gotitem.wav")
 
     def release_batch(self):
         for x in range(0, self.settings.batch_size):
@@ -24,6 +26,7 @@ class Engine:
             food.blitme()
 
             if food.rect.colliderect(self.basket.rect):
+                self.pizzasound.play(loops=0)
                 self.catch_food(food)
                 continue
 
@@ -79,6 +82,7 @@ class Engine:
             poison.blitme()
 
             if poison.rect.colliderect(self.basket.rect):
+                self.poisonsound.play(loops=0)
                 self.hit_poison(poison)
                 continue
 
