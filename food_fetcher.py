@@ -15,6 +15,7 @@ def run_game():
     # initialise the game
     pygame.init()
     # returns a pyGame surface
+    music = pygame.mixer.Sound("music.wav")
     screen = pygame.display.set_mode((settings.screen_width, settings.screen_height), 0, 32)
     clock = pygame.time.Clock()
     scoreboard = Scoreboard(screen)
@@ -29,8 +30,8 @@ def run_game():
     engine = Engine(screen, settings, scoreboard, foods, poisons, basket)
     # play music
 
-    music = pygame.mixer.Sound("music.wav")
-    music.play(loops= -1)
+
+    music.play(loops=-1)
 
     # main event loop
     # while True:

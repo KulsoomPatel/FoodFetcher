@@ -23,11 +23,11 @@ class Settings:
         self.food_speed = 0.1
         self.poison_ratio = 0.10
 
-        # CHANGE THIS VALUE
-        self.speed_increase_factor = 1.05
+        # CHANGE THIS VALUE, 1.05 for testing
+        self.speed_increase_factor = 1.02
         # Number of balloons to release in a spawning:
         self.batch_size = 1
         # CHANGE THIS VALUE
         # Number of balloons that need to be popped before increasing batch_size
         #  For actual play, probably want ~10; for testing, ~3
-        self.batches_needed = 3
+        self.batches_needed = 10
