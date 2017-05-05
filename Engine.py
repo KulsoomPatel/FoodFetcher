@@ -13,8 +13,8 @@ class Engine:
         self.foods = foods
         self.poisons = poisons
         self.basket = basket
-        self.poisonsound = pygame.mixer.Sound("lostitem.wav")
-        self.pizzasound = pygame.mixer.Sound("gotitem.wav")
+        self.poisonsound = pygame.mixer.Sound("music\\lostitem.wav")
+        self.pizzasound = pygame.mixer.Sound("music\\gotitem.wav")
 
     def release_batch(self):
         for x in range(0, self.settings.batch_size):

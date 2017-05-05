@@ -7,7 +7,7 @@ class Food(Sprite):
     def __init__(self, screen, settings):
         Sprite.__init__(self)
         self.screen = screen
-        self.image = pygame.image.load('foodImg.png').convert_alpha()
+        self.image = pygame.image.load('images\\foodImg.png').convert_alpha()
         self.image_w, self.image_h = self.image.get_size()
         self.speed = uniform(0.75, 1.25) * settings.food_speed
 

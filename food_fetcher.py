@@ -15,7 +15,7 @@ def run_game():
     # initialise the game
     pygame.init()
     # returns a pyGame surface
-    music = pygame.mixer.Sound("music.wav")
+    music = pygame.mixer.Sound("music\\music.wav")
     screen = pygame.display.set_mode((settings.screen_width, settings.screen_height), 0, 32)
     clock = pygame.time.Clock()
     scoreboard = Scoreboard(screen)
